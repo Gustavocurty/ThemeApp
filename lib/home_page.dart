@@ -1,8 +1,10 @@
 import 'package:clima_app_flutter/app_controller.dart';
+import 'package:clima_app_flutter/components/CustomSwitch.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget{
-  const HomePage({super.key});
+  // ignore: prefer_const_constructors_in_immutables
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() {
@@ -13,33 +15,30 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage> {
   int counter = 0;
-  bool isDartTheme = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Primeiro App em Flutter')),
         backgroundColor: Colors.lightBlue,
+        actions: [
+          CustomSwitch(),
+        ]
       ),
-      body: Center(
-        child: Switch(
-          value: AppController.instance.isDartTheme,
-           onChanged: (value) {
-            AppController.instance.changeTheme();
-            setState(() {
-              isDartTheme = value;
-            });
-           }),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: const Icon(Icons.add), 
-      //   onPressed: () {
-      //     setState(() {
-      //         counter++;
-      //       });
-      // },),
-      
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Voce clicou $counter vezes.'),
+            CustomSwitch(),
+          ],
+        ),
+            ),
     );
   }
 }
+
