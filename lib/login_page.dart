@@ -11,7 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String email = '';
+  String user = '';
   String password = '';
 
   Widget _body() {
@@ -36,40 +36,41 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: [
                           TextField(
-                      onChanged: (value) {
-                        email = value;
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        border: OutlineInputBorder()
-                        ),
-                                        ),
-                                        SizedBox(height: 15), // Espaçamento sobre os componentes
-                                        TextField(
-                      onChanged: (value) {   // Maneira de pegar o valor do input
+                            onChanged: (value) {
+                              user = value;
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              labelText: 'user',
+                              border: OutlineInputBorder()
+                            ),
+                          ),
+                          SizedBox(height: 15), // Espaçamento sobre os componentes
+                          TextField(
+                            onChanged: (value) {   // Maneira de pegar o valor do input
                               password = value;
-                      },
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: OutlineInputBorder()
-                        ),
-                                        ),
-                                        SizedBox(height: 15),  // Espaçamento sobre os componentes
-                                        ElevatedButton( 
-                      onPressed: () {
-                        if(email == 'guto' && password == '1234'){
-                          Navigator.of(context).pushReplacementNamed('/home');
-                        }else{
-                          print('Email ou senha incorreto!');
-                        }
-                      }, 
-                      child: Text('Entrar'),
-                                        )
-                                        ],),
-                    ),),
-        
+                            },
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              border: OutlineInputBorder()
+                            ),
+                          ),
+                          SizedBox(height: 15),  // Espaçamento sobre os componentes
+                          ElevatedButton( 
+                            onPressed: () {
+                              if(user == 'guxta' && password == '1234'){
+                                Navigator.of(context).pushReplacementNamed('/home');
+                              }else{
+                                print('User ou senha incorreta!');
+                              }
+                            }, 
+                            child: Text('Entrar'),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
