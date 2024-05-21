@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:clima_app_flutter/app_controller.dart';
-import 'package:clima_app_flutter/login_page.dart';
+import 'package:clima_app_flutter/Screens/login_page.dart';
 import 'package:flutter/material.dart';
 
-import 'home_page.dart';
+import 'Screens/home_page.dart';
 
 
 class AppWidget extends StatelessWidget {
