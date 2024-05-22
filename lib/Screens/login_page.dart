@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                           ElevatedButton( 
                             onPressed: () {
                               if(user == 'guxta' && password == '1234'){
-                                Navigator.of(context).pushReplacementNamed('/home');
+                                Navigator.of(context).pushReplacementNamed('/add');
                               }else{
                                 print('User ou senha incorreta!');
                               }
@@ -93,7 +93,9 @@ class _LoginPageState extends State<LoginPage> {
               'Assets/IPRJ.jpeg', 
               fit: BoxFit.cover,
             ),),
+
             Container(color: Colors.black.withOpacity(0.4)),
+
           _body(),
       ],)
     );

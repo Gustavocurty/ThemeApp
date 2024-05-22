@@ -21,6 +21,101 @@ class HomePageState extends State<HomePage> {
   String tarefa = '';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  final TextEditingController tituloController = TextEditingController();
+  final TextEditingController descricaoController = TextEditingController();
+
+
+  Widget _form() {
+    return Form(
+                key: _formKey,
+                child: Row(
+                  children: [
+                    Expanded(    //  preenche o restante da tela
+                      child: Column(
+                        children: [
+                          TextFormField(
+                        controller: tituloController,
+                        decoration: InputDecoration(
+                          hintText: 'Nome da Tarefa'
+                        ),
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) {
+                          setState(() {
+                            tarefa = value;
+                          });
+                        },
+                        validator: (value) {
+                          if((value?.trim() ?? '').isEmpty) {
+                            return 'Campo vazio!';
+                          }
+                          return null;
+                        },
+                      ),
+                      
+                      TextFormField(
+                        controller: tituloController,
+                        decoration: InputDecoration(
+                          hintText: 'Nome da Tarefa'
+                        ),
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) {
+                          setState(() {
+                            tarefa = value;
+                          });
+                        },
+                        validator: (value) {
+                          if((value?.trim() ?? '').isEmpty) {
+                            return 'Campo vazio!';
+                          }
+                          return null;
+                        },
+                      ),
+                        ],
+                      )
+                    ),
+
+                    SizedBox(width: 15),  // Espaçamento sobre os componentes
+
+                    ElevatedButton( 
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            dataList.add(tarefa);
+                          });
+                        }
+                      },
+                      child: Text('Entrar'),
+                    ),
+                  ],
+                ),
+              );
+  }
+
+  Widget tarefasForm() {
+    return SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    dataList.isEmpty ?
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Sem tarefas'),
+                      ),
+                    )
+                    :
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Fazer: $dataList'),
+                      ),
+                    )
+                  ],
+                ),
+              );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,64 +137,13 @@ class HomePageState extends State<HomePage> {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              Form(
-                key: _formKey,
-                child: Row(
-                  children: [
-                    Expanded(    //  preenche o restante da tela
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: 'Digite sua tarefa...'
-                        ),
-                        keyboardType: TextInputType.text,
-                        onChanged: (value) {
-                          setState(() {
-                            tarefa = value;
-                          });
-                        },
-                        validator: (value) {
-                          if((value?.trim() ?? '').isEmpty) {
-                            return 'Campo vazio!';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-
-                    SizedBox(width: 15),  // Espaçamento sobre os componentes
-
-                    ElevatedButton( 
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            dataList.add(tarefa);
-                          });
-                        }
-                      },
-                      child: Text('Entrar'),
-                    ),
-                  ],
-                ),
-              ),
+              
+              _form(),
 
               SizedBox(height: 12),  // Espaçamento sobre os componentes
 
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width,
-                color: Colors.blue,
-                child: Column(
-                  children: [
-                    dataList.isEmpty ?
-                    CardTarefa() 
-                    :
-                    Card(
-                      child: Text('Fazer: $dataList'),
-                    )
-                  ],
-                ),
-              ),
-
+              tarefasForm(),
+              
             ],
           ),
         ),
