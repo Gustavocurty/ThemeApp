@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:clima_app_flutter/Screens/adicionar_tarefa.dart';
 import 'package:clima_app_flutter/app_controller.dart';
@@ -6,6 +6,7 @@ import 'package:clima_app_flutter/Screens/login_page.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/home_page.dart';
+import 'models/tarefa.dart';
 
 
 class AppWidget extends StatelessWidget {
@@ -27,7 +28,7 @@ class AppWidget extends StatelessWidget {
           initialRoute: '/',    // Definimos a rota inicial
           routes: {
 	          '/': (context) => LoginPage(),
-            '/home': (context) => HomePage(),
+            '/home': (context) => HomePage(tarefas: <Tarefa>[]),
 	          '/add': (context) => AddPage(),
           }
         );

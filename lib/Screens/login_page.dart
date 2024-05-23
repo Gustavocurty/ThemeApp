@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                           ElevatedButton( 
                             onPressed: () {
                               if(user == 'guxta' && password == '1234'){
-                                Navigator.of(context).pushReplacementNamed('/add');
+                                Navigator.of(context).pushReplacementNamed('/home');
                               }else{
                                 print('User ou senha incorreta!');
                               }
