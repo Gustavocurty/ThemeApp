@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
-import 'package:clima_app_flutter/components/card_tarefas.dart';
 import 'package:flutter/material.dart';
 
 class AddPage extends StatefulWidget {
@@ -73,7 +72,6 @@ class AddPageState extends State<AddPage> {
                   'titulo': TituloTarefa,
                   'descricao': DescricaoTarefa,
                 });
-                // Navigator.of(context).pushReplacementNamed('/home');
               }
             },
             child: Text('Adicionar'),

@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-
 import '../components/card_tarefas.dart';
 import '../models/tarefa.dart';
 
 class HomePage extends StatefulWidget {
-  // ignore: prefer_const_constructors_in_immutables
   final List<Tarefa> tarefas;
+
   const HomePage({super.key, required this.tarefas});
 
   @override
@@ -31,8 +30,22 @@ class HomePageState extends State<HomePage> {
       setState(() {
         tarefas.add(Tarefa(
           titulo: result['titulo']!,
-          descricao: result['descricao']!, id: '',
+          descricao: result['descricao']!,
+          id: '',
         ));
+      });
+    }
+  }
+
+  Future<void> _editarTarefa(BuildContext context, Tarefa tarefa, int index) async {
+    final result = await Navigator.of(context).pushNamed(
+      '/edit',
+      arguments: tarefa,
+    );
+
+    if (result != null && result is Tarefa) {
+      setState(() {
+        tarefas[index] = result;
       });
     }
   }
@@ -54,7 +67,10 @@ class HomePageState extends State<HomePage> {
                   child: ListView.builder(
                     itemCount: tarefas.length,
                     itemBuilder: (context, index) {
-                      return CardTarefa(tarefa: tarefas[index]);
+                      return CardTarefa(
+                        tarefa: tarefas[index],
+                        onEdit: () => _editarTarefa(context, tarefas[index], index),
+                      );
                     },
                   ),
                 ),
