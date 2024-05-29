@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import '../models/tarefa.dart';
@@ -6,7 +6,7 @@ import '../models/tarefa.dart';
 class EditPage extends StatefulWidget {
   final Tarefa tarefa;
 
-  EditPage({super.key, required this.tarefa});
+  EditPage({Key? key, required this.tarefa}) : super(key: key);
 
   @override
   _EditPageState createState() => _EditPageState();
@@ -36,21 +36,34 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Tarefa'),
+        title: Text('Editar Tarefa'),
         backgroundColor: Colors.lightBlue,
       ),
+      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,  // A chave do formulário deve envolver todos os campos
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Título da sua tarefa',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
               TextFormField(
                 controller: tituloController,
                 decoration: InputDecoration(
-                  labelText: 'Título',
+                  hintText: 'Digite aqui..',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: EdgeInsets.all(16),
                 ),
-                keyboardType: TextInputType.text,
                 validator: (value) {
                   if ((value?.trim() ?? '').isEmpty) {
                     return 'Campo vazio!';
@@ -59,12 +72,23 @@ class _EditPageState extends State<EditPage> {
                 },
               ),
               SizedBox(height: 16),
+              Text(
+                'Descrição da sua tarefa',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
               TextFormField(
                 controller: descricaoController,
                 decoration: InputDecoration(
-                  labelText: 'Descrição',
+                  hintText: 'Digite aqui..',
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: EdgeInsets.all(16),
                 ),
-                keyboardType: TextInputType.text,
                 validator: (value) {
                   if ((value?.trim() ?? '').isEmpty) {
                     return 'Campo vazio!';
@@ -72,18 +96,30 @@ class _EditPageState extends State<EditPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    setState(() {
-                      widget.tarefa.titulo = tituloController.text;
-                      widget.tarefa.descricao = descricaoController.text;
-                    });
-                    Navigator.pop(context, widget.tarefa); // Retorna a tarefa editada
-                  }
-                },
-                child: const Text('Salvar'),
+
+              SizedBox(height: 20),
+
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        widget.tarefa.titulo = tituloController.text;
+                        widget.tarefa.descricao = descricaoController.text;
+                      });
+                      Navigator.pop(context, widget.tarefa); // Retorna a tarefa editada
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white, backgroundColor: Colors.lightBlue, // Cor do texto do botão
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20), // Espaçamento interno do botão
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10), // Borda arredondada do botão
+                    ),
+                    elevation: 4, // Altura da sombra do botão
+                  ),
+                  child: Text('Salvar alterações'),
+                ),
               ),
             ],
           ),

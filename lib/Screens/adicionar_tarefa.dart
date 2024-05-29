@@ -1,96 +1,133 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
 class AddPage extends StatefulWidget {
-  // ignore: prefer_const_constructors_in_immutables
-  AddPage({super.key});
+  const AddPage({Key? key}) : super(key: key);
 
   @override
-  State<AddPage> createState() {
-    return AddPageState();
-  }
+  State<AddPage> createState() => AddPageState();
 }
 
 class AddPageState extends State<AddPage> {
-  String TituloTarefa = '';
-  String DescricaoTarefa = '';
+  String tituloTarefa = '';
+  String descricaoTarefa = '';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController tituloController = TextEditingController();
   final TextEditingController descricaoController = TextEditingController();
 
-  Widget _form() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Nome da sua tarefa'),
-            ),
-          ),
-          TextFormField(
-            controller: tituloController,
-            decoration: InputDecoration(hintText: 'Digite aqui..'),
-            keyboardType: TextInputType.text,
-            onChanged: (value) {
-              setState(() {
-                TituloTarefa = value;
-              });
-            },
-            validator: (value) {
-              if ((value?.trim() ?? '').isEmpty) {
-                return 'Campo vazio!';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 8), // Espaçamento entre os campos
-          TextFormField(
-            controller: descricaoController,
-            decoration: InputDecoration(hintText: 'Digite aqui..'),
-            keyboardType: TextInputType.text,
-            onChanged: (value) {
-              setState(() {
-                DescricaoTarefa = value;
-              });
-            },
-            validator: (value) {
-              if ((value?.trim() ?? '').isEmpty) {
-                return 'Campo vazio!';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 15), // Espaçamento antes do botão
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                Navigator.of(context).pop({
-                  'titulo': TituloTarefa,
-                  'descricao': DescricaoTarefa,
-                });
-              }
-            },
-            child: Text('Adicionar'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Adicionar tarefa')),
+        title: Text('Adicionar Tarefa'),
+        centerTitle: true,
         backgroundColor: Colors.lightBlue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
-        child: _form(),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              Text(
+                'Título da sua tarefa',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: tituloController,
+                    decoration: InputDecoration(
+                      hintText: 'Digite aqui..',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: EdgeInsets.all(16),
+                    ),
+                    validator: (value) {
+                      if ((value?.trim() ?? '').isEmpty) {
+                        return 'Campo vazio!';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      setState(() {
+                        tituloTarefa = value;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Descrição da sua tarefa',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: descricaoController,
+                    decoration: InputDecoration(
+                      hintText: 'Digite aqui..',
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: EdgeInsets.all(16),
+                    ),
+                    validator: (value) {
+                      if ((value?.trim() ?? '').isEmpty) {
+                        return 'Campo vazio!';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      setState(() {
+                        descricaoTarefa = value;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+
+              Center(
+                child: ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.of(context).pop({
+                      'titulo': tituloTarefa,
+                      'descricao': descricaoTarefa,
+                    });
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.lightBlue, // Cor do texto do botão
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20), // Espaçamento interno do botão
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // Borda arredondada do botão
+                  ),
+                  elevation: 4, // Altura da sombra do botão
+                ),
+                child: Text('Adicionar'),
+              ),
+
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
